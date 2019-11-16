@@ -8,6 +8,7 @@ __pycache__/
 
 executable/
 module/Pipfile.lock
+.DS_Store
 
 # Distribution / packaging
 .Python

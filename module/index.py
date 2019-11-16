@@ -80,7 +80,7 @@ def set_mortgage_characteristics():
 
 def display_mortgage_informations(mortgage_characteristics):
     print("If you borrow {}$ at an interest rate of {} over a {} months period :\n"
-          .format(mortgage_characteristics["P"], mortgage_characteristics["r"], mortgage_characteristics["n"]))
+          .format(mortgage_characteristics["P"], mortgage_characteristics["r"] * 100, mortgage_characteristics["n"]))
     print("\t- you monthly payment will be equal to {}$\n".format(mortgage_characteristics["M"]))
     print("After {} months, your outstanding load balance will be equal to {}$".format(mortgage_characteristics["m"], mortgage_characteristics["L"]))
 
