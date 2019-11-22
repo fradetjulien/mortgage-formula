@@ -6,8 +6,8 @@ def compute_outstanding_load_balance(mortgage_characteristics):
         numerator = (((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"]) \
                     - ((1 + mortgage_characteristics["r"])**mortgage_characteristics["m"]))
         denominator = (((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"]) - 1)
-        outstanding_load_balance = mortgage_characteristics["P"] \
-                                   * (numerator / denominator)
+        outstanding_load_balance = round(mortgage_characteristics["P"] \
+                                   * (numerator / denominator), 2)
     except:
         outstanding_load_balance = None
         print("Sorry, we were unable to compute your outstanding load balance.")
@@ -18,9 +18,9 @@ def compute_monthly_paiement(mortgage_characteristics):
     Compute the average monthly payment for the loan
     '''
     try:
-        monthly_paiements = mortgage_characteristics["P"] * mortgage_characteristics["r"] \
+        monthly_paiements = round(mortgage_characteristics["P"] * mortgage_characteristics["r"] \
                             * ((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"] \
-                            / ((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"] - 1))
+                            / ((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"] - 1)), 2)
     except:
         monthly_paiements = None
         print("Sorry, we were unable to compute your average monthly payment.")
@@ -75,14 +75,14 @@ def set_mortgage_characteristics():
     mortgage_characteristics["P"] = set_characteristic(instruction='Enter the total amount of the mortgage loan :\n')
     mortgage_characteristics["r"] = set_interest_rate()
     mortgage_characteristics["n"] = set_characteristic(instruction='Enter the number of months :\n')
-    mortgage_characteristics["m"] = set_characteristic(instruction='Check the outstanding loan balance after : ')
+    mortgage_characteristics["m"] = set_characteristic(instruction='Check the outstanding loan balance after :\n')
     return mortgage_characteristics
 
 def display_mortgage_informations(mortgage_characteristics):
-    print("If you borrow {}$ at an interest rate of {} over a {} months period :\n"
+    print("If you borrow ${} at an interest rate of {}% over a {} months period :\n"
           .format(mortgage_characteristics["P"], mortgage_characteristics["r"] * 100, mortgage_characteristics["n"]))
-    print("\t- you monthly payment will be equal to {}$\n".format(mortgage_characteristics["M"]))
-    print("After {} months, your outstanding load balance will be equal to {}$".format(mortgage_characteristics["m"], mortgage_characteristics["L"]))
+    print("\t- you monthly payment will be equal to ${}\n".format(mortgage_characteristics["M"]))
+    print("After {} months, your outstanding load balance will be equal to ${}".format(mortgage_characteristics["m"], mortgage_characteristics["L"]))
 
 def compute_mortgage():
     '''
