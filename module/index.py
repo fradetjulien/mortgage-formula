@@ -1,3 +1,16 @@
+'''
+Mortgage Formulas
+'''
+
+def display_mortgage_informations(mortgage_characteristics):
+    '''
+    Display all results to the user in the CLI
+    '''
+    print("If you borrow ${} at an interest rate of {}% over a {} months period :\n"
+          .format(mortgage_characteristics["P"], mortgage_characteristics["r"] * 100, mortgage_characteristics["n"]))
+    print("\t- you monthly payment will be equal to ${}\n".format(mortgage_characteristics["M"]))
+    print("After {} months, your outstanding load balance will be equal to ${}".format(mortgage_characteristics["m"], mortgage_characteristics["L"]))
+
 def compute_outstanding_load_balance(mortgage_characteristics):
     '''
     Compute the outstanding load balance after a given number of months
@@ -8,7 +21,7 @@ def compute_outstanding_load_balance(mortgage_characteristics):
         denominator = (((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"]) - 1)
         outstanding_load_balance = round(mortgage_characteristics["P"] \
                                    * (numerator / denominator), 2)
-    except:
+    except ValueError:
         outstanding_load_balance = None
         print("Sorry, we were unable to compute your outstanding load balance.")
     return outstanding_load_balance
@@ -21,7 +34,7 @@ def compute_monthly_paiement(mortgage_characteristics):
         monthly_paiements = round(mortgage_characteristics["P"] * mortgage_characteristics["r"] \
                             * ((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"] \
                             / ((1 + mortgage_characteristics["r"])**mortgage_characteristics["n"] - 1)), 2)
-    except:
+    except ValueError:
         monthly_paiements = None
         print("Sorry, we were unable to compute your average monthly payment.")
     return monthly_paiements
@@ -60,9 +73,9 @@ def set_characteristic(instruction):
             break
     return characteristic
 
-def set_mortgage_characteristics():
+def init_characteristics():
     '''
-    Insert the mortgage characteristics inside a dictionnary
+    Initialize Mortgage characteristics inside a new dictionnary
     '''
     mortgage_characteristics = {
         "P": None,
@@ -72,17 +85,18 @@ def set_mortgage_characteristics():
         "M": None,
         "L": None
     }
+    return mortgage_characteristics
+
+def set_mortgage_characteristics():
+    '''
+    Insert the mortgage characteristics inside a dictionnary
+    '''
+    mortgage_characteristics = init_characteristics()
     mortgage_characteristics["P"] = set_characteristic(instruction='Enter the total amount of the mortgage loan :\n')
     mortgage_characteristics["r"] = set_interest_rate()
     mortgage_characteristics["n"] = set_characteristic(instruction='Enter the number of months :\n')
     mortgage_characteristics["m"] = set_characteristic(instruction='Check the outstanding loan balance after :\n')
     return mortgage_characteristics
-
-def display_mortgage_informations(mortgage_characteristics):
-    print("If you borrow ${} at an interest rate of {}% over a {} months period :\n"
-          .format(mortgage_characteristics["P"], mortgage_characteristics["r"] * 100, mortgage_characteristics["n"]))
-    print("\t- you monthly payment will be equal to ${}\n".format(mortgage_characteristics["M"]))
-    print("After {} months, your outstanding load balance will be equal to ${}".format(mortgage_characteristics["m"], mortgage_characteristics["L"]))
 
 def compute_mortgage():
     '''
